@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidade – NextWave Hub UK</title>
+  <meta name="description" content="Política de Privacidade da NextWave Hub UK. Comprometidos com a proteção dos seus dados em conformidade com o UK GDPR." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800;9..144,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #0B1C39; color: #ffffff; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+    :root {
+      --gold: #C9A96E;
+      --green: #00C896;
+      --navy: #0B1C39;
+    }
+
+    /* Noise */
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Grid background */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(0,200,150,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,150,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(11,28,57,0.88);
+      border-bottom: 1px solid rgba(0,200,150,0.12);
+    }
+
+    /* Progress bar */
+    #progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, #00C896, #C9A96E);
+      z-index: 999; width: 0%; transition: width 0.1s linear;
+    }
+
+    /* Gold bar */
+    .gold-bar {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #C9A96E, transparent);
+      opacity: 0.45;
+    }
+
+    /* Section divider */
+    .divider {
+      border: none; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,200,150,0.15), rgba(201,169,110,0.35), rgba(0,200,150,0.15), transparent);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,200,150,0.1);
+      border: 1px solid rgba(0,200,150,0.25);
+      color: #00C896;
+      font-size: 11px; font-weight: 600;
+      padding: 4px 14px; border-radius: 100px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* Glass card */
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    /* Policy section card */
+    .policy-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-left: 3px solid var(--green);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      transition: border-left-color 0.3s ease, background 0.3s ease;
+    }
+    .policy-card:hover {
+      border-left-color: var(--gold);
+      background: rgba(255,255,255,0.05);
+    }
+    .policy-card.gold-accent {
+      border-left-color: var(--gold);
+    }
+
+    /* Section number */
+    .section-num {
+      font-family: 'Fraunces', serif;
+      font-size: 0.7rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 8px;
+      display: block;
+    }
+
+    /* Section title */
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: #fff; margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    /* Body text */
+    .body-text {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.93rem; line-height: 1.8;
+    }
+
+    /* List items */
+    .policy-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .policy-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      color: rgba(255,255,255,0.6); font-size: 0.93rem; line-height: 1.6;
+    }
+    .policy-list li::before {
+      content: '—';
+      color: var(--green); font-weight: 700; flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Email link */
+    .email-link {
+      color: var(--green); font-weight: 600;
+      text-decoration: none; border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .email-link:hover { border-color: var(--green); }
+
+    /* Btn primary */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #00C896; color: #0B1C39;
+      font-family: 'Fraunces', serif; font-weight: 700;
+      border-radius: 6px; transition: all 0.25s ease;
+      letter-spacing: 0.01em; text-decoration: none;
+    }
+    .btn-primary:hover { background: #00e6ae; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,200,150,0.35); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Blob */
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+
+    /* WA button */
+    #wa-btn {
+      position: fixed; bottom: 28px; right: 24px; z-index: 200;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.45);
+      transition: all 0.3s ease;
+    }
+    #wa-btn:hover { transform: scale(1.1); }
+
+    footer { border-top: 1px solid rgba(255,255,255,0.06); }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <span style="width:32px;height:32px;background:linear-gradient(135deg,#00C896,#C9A96E);border-radius:6px;display:flex;align-items:center;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-8 4 4 4-6 4 6" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span style="font-family:'Fraunces',serif;font-weight:800;font-size:15px;letter-spacing:-0.02em;">
+        NextWave <span style="color:#00C896;">Hub</span> UK
+      </span>
+    </a>
+    <a href="index.html" class="btn-primary text-sm px-5 py-2.5">
+      ← Voltar ao site
+    </a>
+  </div>
+</nav>
+
+<!-- ── HERO HEADER ── -->
+<section class="grid-bg relative pt-32 pb-16 px-5 overflow-hidden">
+  <div class="gold-bar w-full absolute top-0 left-0 right-0"></div>
+  <div class="blob w-72 h-72 opacity-10 -top-10 right-0" style="background:#00C896;"></div>
+  <div class="blob w-56 h-56 opacity-8 bottom-0 -left-10" style="background:#C9A96E;opacity:0.06;"></div>
+
+  <div class="max-w-3xl mx-auto relative z-10">
+    <div class="badge mb-6 reveal">🔒 Legal</div>
+    <h1 class="reveal" style="font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:1rem;transition-delay:0.1s;">
+      Política de <span style="color:#00C896;font-style:italic;">Privacidade</span>
+    </h1>
+    <p class="reveal" style="color:rgba(255,255,255,0.5);font-size:0.95rem;margin-bottom:0.5rem;transition-delay:0.15s;">
+      Última atualização: <span style="color:var(--gold);font-weight:600;">01 de abril de 2026</span>
+    </p>
+    <p class="reveal body-text" style="max-width:580px;margin-top:1rem;transition-delay:0.2s;">
+      A NextWave Hub UK respeita a sua privacidade e está comprometida em proteger os seus dados pessoais, em conformidade com o <strong style="color:rgba(255,255,255,0.85);">UK GDPR</strong> e o <strong style="color:rgba(255,255,255,0.85);">Data Protection Act 2018</strong>.
+    </p>
+
+    <!-- Quick nav pills -->
+    <div class="reveal flex flex-wrap gap-2 mt-8" style="transition-delay:0.3s;">
+      <a href="#s1" style="font-size:12px;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);text-decoration:none;transition:all 0.2s;" class="hover:text-white">Informações coletadas</a>
+      <a href="#s2" style="font-size:12px;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);text-decoration:none;transition:all 0.2s;" class="hover:text-white">Uso dos dados</a>
+      <a href="#s3" style="font-size:12px;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);text-decoration:none;transition:all 0.2s;" class="hover:text-white">Base legal</a>
+      <a href="#s5" style="font-size:12px;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);text-decoration:none;transition:all 0.2s;" class="hover:text-white">Segurança</a>
+      <a href="#s6" style="font-size:12px;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);text-decoration:none;transition:all 0.2s;" class="hover:text-white">Seus direitos</a>
+      <a href="#s9" style="font-size:12px;padding:5px 12px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);text-decoration:none;transition:all 0.2s;" class="hover:text-white">Contato</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── POLICY CONTENT ── -->
+<section class="py-16 px-5" style="background:linear-gradient(180deg,#0d2048 0%,#0B1C39 100%);">
+  <div class="max-w-3xl mx-auto">
+
+    <!-- 1 -->
+    <div class="policy-card reveal" id="s1">
+      <span class="section-num">Secção 01</span>
+      <h2 class="section-title">Informações que Coletamos</h2>
+      <p class="body-text" style="margin-bottom:12px;">Podemos coletar e processar os seguintes dados pessoais:</p>
+      <ul class="policy-list">
+        <li>Nome completo</li>
+        <li>Endereço de e-mail</li>
+        <li>Número de telefone (incluindo WhatsApp)</li>
+        <li>Informações fornecidas voluntariamente em formulários</li>
+        <li>Dados de navegação — cookies, endereço IP, tipo de dispositivo e browser</li>
+      </ul>
+    </div>
+
+    <!-- 2 -->
+    <div class="policy-card reveal" id="s2" style="transition-delay:0.05s;">
+      <span class="section-num">Secção 02</span>
+      <h2 class="section-title">Como Utilizamos Seus Dados</h2>
+      <p class="body-text" style="margin-bottom:12px;">Utilizamos os seus dados para:</p>
+      <ul class="policy-list">
+        <li>Fornecer acesso a conteúdos, cursos e materiais gratuitos</li>
+        <li>Responder a dúvidas e solicitações</li>
+        <li>Enviar comunicações relacionadas aos nossos serviços</li>
+        <li>Melhorar a experiência do utilizador no site</li>
+        <li>Cumprir obrigações legais e regulatórias</li>
+      </ul>
+    </div>
+
+    <!-- 3 -->
+    <div class="policy-card reveal" id="s3" style="transition-delay:0.1s;">
+      <span class="section-num">Secção 03</span>
+      <h2 class="section-title">Base Legal para Processamento</h2>
+      <p class="body-text" style="margin-bottom:12px;">Processamos os seus dados com base em:</p>
+      <ul class="policy-list">
+        <li>Consentimento do utilizador</li>
+        <li>Execução de contrato (quando aplicável)</li>
+        <li>Interesse legítimo — melhoria dos serviços e comunicação</li>
+      </ul>
+    </div>
+
+    <!-- 4 -->
+    <div class="policy-card reveal" id="s4" style="transition-delay:0.1s;">
+      <span class="section-num">Secção 04</span>
+      <h2 class="section-title">Compartilhamento de Dados</h2>
+      <p class="body-text" style="margin-bottom:12px;">
+        Não vendemos os seus dados pessoais. Podemos compartilhar informações com parceiros operacionais estritamente necessários:
+      </p>
+      <ul class="policy-list">
+        <li>Plataformas de pagamento — ex: Stripe</li>
+        <li>Plataformas de cursos — ex: Hotmart, Kajabi</li>
+        <li>Ferramentas de marketing e e-mail</li>
+      </ul>
+      <div style="margin-top:16px;padding:12px 16px;background:rgba(0,200,150,0.06);border-radius:8px;border:1px solid rgba(0,200,150,0.15);">
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);">
+          <span style="color:#00C896;font-weight:600;">✓ Garantia:</span> Todos os terceiros cumprem normas de proteção de dados equivalentes ao UK GDPR.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="policy-card reveal gold-accent" id="s5" style="transition-delay:0.1s;">
+      <span class="section-num" style="color:#00C896;">Secção 05</span>
+      <h2 class="section-title">Armazenamento e Segurança</h2>
+      <p class="body-text">
+        Adotamos medidas técnicas e organizacionais para proteger os seus dados contra acesso não autorizado, perda ou uso indevido. Os seus dados são armazenados com segurança e apenas pelo período necessário para cumprir as finalidades descritas nesta política.
+      </p>
+    </div>
+
+    <!-- 6 -->
+    <div class="policy-card reveal" id="s6" style="transition-delay:0.1s;border-left-color:#C9A96E;">
+      <span class="section-num">Secção 06</span>
+      <h2 class="section-title">Seus Direitos</h2>
+      <p class="body-text" style="margin-bottom:12px;">Nos termos do UK GDPR, você tem o direito de:</p>
+      <ul class="policy-list">
+        <li>Acessar seus dados pessoais</li>
+        <li>Corrigir dados incorretos ou desatualizados</li>
+        <li>Solicitar a exclusão dos seus dados</li>
+        <li>Retirar consentimento a qualquer momento</li>
+        <li>Solicitar portabilidade dos dados</li>
+      </ul>
+      <div style="margin-top:18px;padding:14px 18px;background:rgba(201,169,110,0.06);border-radius:8px;border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;gap:12px;">
+        <span style="font-size:20px;">📧</span>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);">
+          Para exercer os seus direitos, entre em contacto:<br/>
+          <a href="mailto:nextwavehubuk@gmail.com" class="email-link" style="color:#C9A96E;border-color:rgba(201,169,110,0.4);">nextwavehubuk@gmail.com</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="policy-card reveal" id="s7" style="transition-delay:0.1s;">
+      <span class="section-num">Secção 07</span>
+      <h2 class="section-title">Cookies</h2>
+      <p class="body-text">
+        Utilizamos cookies para melhorar a navegação e analisar o uso do site. Os cookies podem incluir cookies de sessão, funcionais e analíticos. Pode gerir ou desativar os cookies nas configurações do seu browser a qualquer momento — no entanto, isso poderá afetar a experiência de navegação.
+      </p>
+    </div>
+
+    <!-- 8 -->
+    <div class="policy-card reveal" id="s8" style="transition-delay:0.1s;">
+      <span class="section-num">Secção 08</span>
+      <h2 class="section-title">Alterações a Esta Política</h2>
+      <p class="body-text">
+        Podemos atualizar esta política periodicamente para refletir mudanças nas nossas práticas ou por exigências legais. A data de "última atualização" no topo deste documento será sempre atualizada. Recomendamos revisá-la regularmente.
+      </p>
+    </div>
+
+    <!-- 9 -->
+    <div class="policy-card reveal gold-accent" id="s9" style="transition-delay:0.1s;border-left-color:#C9A96E;">
+      <span class="section-num">Secção 09</span>
+      <h2 class="section-title">Contato</h2>
+      <p class="body-text" style="margin-bottom:16px;">
+        Se tiver dúvidas, preocupações ou quiser exercer os seus direitos relativamente a esta política, entre em contacto com a NextWave Hub UK:
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="mailto:nextwavehubuk@gmail.com" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;background:rgba(201,169,110,0.08);border:1px solid rgba(201,169,110,0.25);color:#C9A96E;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;" class="hover:bg-opacity-20">
+          📧 nextwavehubuk@gmail.com
+        </a>
+        <a href="#" class="wa-link" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);color:#25D366;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.2s;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.115 1.524 5.847L.057 23.57a.5.5 0 00.602.602l5.733-1.464A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.697-.503-5.245-1.383l-.375-.214-3.882.993.997-3.777-.232-.389A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── FOOTER ── -->
+<footer class="py-10 px-5" style="background:#070f1f;">
+  <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-5">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <span style="width:28px;height:28px;background:linear-gradient(135deg,#00C896,#C9A96E);border-radius:5px;display:flex;align-items:center;justify-content:center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-8 4 4 4-6 4 6" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span style="font-family:'Fraunces',serif;font-weight:800;font-size:14px;">NextWave <span style="color:#00C896;">Hub</span> UK</span>
+    </a>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;">
+      <a href="index.html" style="font-size:12px;color:rgba(255,255,255,0.35);" class="hover:text-white transition-colors">Início</a>
+      <a href="politica-de-privacidade.html" style="font-size:12px;color:#C9A96E;font-weight:600;">Política de Privacidade</a>
+      <a href="termos-de-uso.html" style="font-size:12px;color:rgba(255,255,255,0.35);" class="hover:text-white transition-colors">Termos de Uso</a>
+      <a href="index.html#lead" style="font-size:12px;color:rgba(255,255,255,0.35);" class="hover:text-white transition-colors">Guia Grátis</a>
+      <a href="mailto:nextwavehubuk@gmail.com" style="font-size:12px;color:rgba(255,255,255,0.35);" class="hover:text-white transition-colors">Contato</a>
+    </div>
+    <p style="font-size:11px;color:#C9A96E;letter-spacing:0.1em;font-weight:600;opacity:0.65;">◆ Education. Strategy. Wealth. ◆</p>
+  </div>
+  <div class="max-w-5xl mx-auto mt-6 pt-6" style="border-top:1px solid rgba(255,255,255,0.05);">
+    <p style="font-size:11px;color:rgba(255,255,255,0.2);text-align:center;line-height:1.7;">
+      © 2026 NextWave Hub UK. Todos os direitos reservados.<br/>
+      Registada no Reino Unido · Em conformidade com o UK GDPR e o Data Protection Act 2018
+    </p>
+  </div>
+</footer>
+
+<!-- WA float -->
+<a id="wa-btn" href="#" class="wa-link" title="Falar no WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="#ffffff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.115 1.524 5.847L.057 23.57a.5.5 0 00.602.602l5.733-1.464A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.697-.503-5.245-1.383l-.375-.214-3.882.993.997-3.777-.232-.389A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop || document.body.scrollTop) / ((h.scrollHeight || document.body.scrollHeight) - h.clientHeight) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+
+  // Reveal on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Smooth scroll anchors
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // WhatsApp masked
+  const _p = ['https://', 'wa.', 'me/', '44', '75', '46', '37', '86', '80'];
+  const waUrl = _p.join('');
+  document.querySelectorAll('.wa-link').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); window.open(waUrl, '_blank', 'noopener,noreferrer'); });
+  });
+</script>
+</body>
+</html>
