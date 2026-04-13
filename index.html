@@ -1,876 +1,597 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NextWave Hub UK – Construa sua renda no Reino Unido</title>
-  <meta name="description" content="Aprenda a começar um negócio de pintura ou investir na bolsa britânica. Educação prática para brasileiros no Reino Unido." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800;9..144,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: '#0B1C39',
-            navyLight: '#122347',
-            navyMid: '#1a2f56',
-            emerald: '#00C896',
-            emeraldDim: '#00a87e',
-            emeraldGlow: 'rgba(0,200,150,0.15)',
-            cream: '#F5F0E8',
-            muted: '#8A9BB5',
-          },
-          fontFamily: {
-            display: ['Fraunces', 'serif'],
-            body: ['DM Sans', 'sans-serif'],
-          },
-          animation: {
-            'fade-up': 'fadeUp 0.7s ease forwards',
-            'fade-in': 'fadeIn 0.6s ease forwards',
-            'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite',
-            'float': 'float 3s ease-in-out infinite',
-          },
-          keyframes: {
-            fadeUp: { '0%': { opacity: '0', transform: 'translateY(28px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-            pulseGlow: { '0%,100%': { boxShadow: '0 0 0 0 rgba(0,200,150,0.4)' }, '50%': { boxShadow: '0 0 0 12px rgba(0,200,150,0)' } },
-            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
-          }
-        }
-      }
-    };
-  </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: #0B1C39; color: #ffffff; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-
-    :root {
-      --gold: #C9A96E;
-      --gold-glow: rgba(201,169,110,0.15);
-      --gold-dim: rgba(201,169,110,0.08);
-    }
-
-    /* ── Gold accent bar — top of hero ── */
-    .gold-bar {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #C9A96E, transparent);
-      opacity: 0.55;
-    }
-
-    /* ── Gold shimmer on hover ── */
-    .gold-hover:hover { color: #C9A96E !important; transition: color 0.25s; }
-
-    /* ── Noise texture overlay ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0;
-    }
-
-    /* ── Grid lines ── */
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(0,200,150,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,200,150,0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-    }
-
-    /* ── Glow blobs ── */
-    .blob {
-      position: absolute; border-radius: 50%;
-      filter: blur(80px); pointer-events: none; z-index: 1;
-    }
-
-    /* ── Animated entrance ── */
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Nav ── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; backdrop-filter: blur(20px); background: rgba(11,28,57,0.85); border-bottom: 1px solid rgba(0,200,150,0.12); }
-
-    /* ── Hero gradient ── */
-    .hero-gradient {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,200,150,0.12) 0%, transparent 70%),
-                  linear-gradient(180deg, #0B1C39 0%, #0d2048 100%);
-    }
-
-    /* ── Card glass ── */
-    .glass {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
-      transition: all 0.35s ease;
-    }
-    .glass:hover {
-      background: rgba(0,200,150,0.06);
-      border-color: rgba(0,200,150,0.3);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,200,150,0.1);
-    }
-
-    /* ── CTA buttons ── */
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #00C896;
-      color: #0B1C39;
-      font-family: 'Fraunces', serif;
-      font-weight: 700;
-      border-radius: 6px;
-      transition: all 0.25s ease;
-      letter-spacing: 0.01em;
-    }
-    .btn-primary:hover { background: #00e6ae; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,200,150,0.35); }
-    .btn-primary:active { transform: translateY(0); }
-
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: transparent;
-      color: #00C896;
-      border: 1.5px solid #00C896;
-      font-family: 'Fraunces', serif;
-      font-weight: 700;
-      border-radius: 6px;
-      transition: all 0.25s ease;
-    }
-    .btn-outline:hover { background: rgba(0,200,150,0.1); transform: translateY(-2px); }
-
-    /* ── Badge ── */
-    .badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(0,200,150,0.12);
-      border: 1px solid rgba(0,200,150,0.3);
-      color: #00C896;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px; font-weight: 600;
-      padding: 5px 14px;
-      border-radius: 100px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    /* ── Section divider ── */
-    .divider { border: none; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,200,150,0.15), rgba(201,169,110,0.35), rgba(0,200,150,0.15), transparent); }
-
-    /* ── Input ── */
-    .input-field {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: #fff;
-      border-radius: 6px;
-      transition: all 0.25s ease;
-      outline: none;
-    }
-    .input-field::placeholder { color: rgba(255,255,255,0.35); }
-    .input-field:focus { border-color: #00C896; background: rgba(0,200,150,0.06); box-shadow: 0 0 0 3px rgba(0,200,150,0.12); }
-
-    /* ── Stat number ── */
-    .stat-num { font-family: 'Fraunces', serif; color: #00C896; }
-
-    /* ── WA button ── */
-    #wa-btn {
-      position: fixed; bottom: 28px; right: 24px; z-index: 200;
-      width: 60px; height: 60px; border-radius: 50%;
-      background: #25D366;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 8px 24px rgba(37,211,102,0.45);
-      transition: all 0.3s ease;
-      animation: pulseGlow 2.5s ease-in-out infinite;
-    }
-    #wa-btn:hover { transform: scale(1.1); }
-
-    /* ── Footer ── */
-    footer { border-top: 1px solid rgba(255,255,255,0.06); }
-
-    /* ── Scroll progress ── */
-    #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #00C896, #C9A96E); z-index: 999; width: 0%; transition: width 0.1s linear; }
-
-    /* ── Number highlight ── */
-    .highlight-line { position: relative; display: inline-block; }
-    .highlight-line::after {
-      content: '';
-      position: absolute; bottom: -3px; left: 0; right: 0; height: 3px;
-      background: #C9A96E; border-radius: 2px;
-    }
-
-
-    /* ── Watermark layer ── */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900' viewBox='0 0 900 900'%3E%3Cdefs%3E%3Cstyle%3E%40import url('https%3A%2F%2Ffonts.googleapis.com%2Fcss2%3Ffamily%3DFraunces%3Aopsz%2Cwght%409..144%2C800')%3B%3C%2Fstyle%3E%3C%2Fdefs%3E%3C!-- Large NW monogram --%3E%3Ctext x='450' y='520' text-anchor='middle' font-family='Georgia%2C serif' font-size='520' font-weight='900' fill='%2300C896' fill-opacity='0.022' letter-spacing='-30'>NW%3C%2Ftext%3E%3C!-- Brand name arc --%3E%3Ctext x='450' y='760' text-anchor='middle' font-family='Georgia%2C serif' font-size='28' font-weight='700' fill='%2300C896' fill-opacity='0.06' letter-spacing='14'>NEXTWAVE HUB UK%3C%2Ftext%3E%3C!-- Chart lines --%3E%3Cpolyline points='60%2C680 130%2C620 200%2C650 290%2C520 370%2C560 440%2C440 530%2C480 610%2C340 700%2C390 800%2C240 840%2C260' fill='none' stroke='%2300C896' stroke-opacity='0.07' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%2F%3E%3Cpolyline points='60%2C720 130%2C680 200%2C700 290%2C600 370%2C630 440%2C520 530%2C560 610%2C440 700%2C480 800%2C360 840%2C380' fill='none' stroke='%2300C896' stroke-opacity='0.04' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%2F%3E%3C!-- Corner decorative diamond --%3E%3Cpolygon points='850%2C50 870%2C70 850%2C90 830%2C70' fill='none' stroke='%2300C896' stroke-opacity='0.12' stroke-width='1.5'%2F%3E%3Cpolygon points='850%2C50 870%2C70 850%2C90 830%2C70' fill='%2300C896' fill-opacity='0.04'%2F%3E%3Ccircle cx='850' cy='70' r='40' fill='none' stroke='%2300C896' stroke-opacity='0.05' stroke-width='1'%2F%3E%3C!-- Top-left corner ring --%3E%3Ccircle cx='50' cy='50' r='80' fill='none' stroke='%2300C896' stroke-opacity='0.05' stroke-width='1'%2F%3E%3Ccircle cx='50' cy='50' r='50' fill='none' stroke='%2300C896' stroke-opacity='0.07' stroke-width='1'%2F%3E%3C!-- Tagline bottom --%3E%3Ctext x='450' y='830' text-anchor='middle' font-family='Georgia%2C serif' font-size='13' font-weight='400' fill='%2300C896' fill-opacity='0.07' letter-spacing='6'>EDUCATION . STRATEGY . WEALTH%3C%2Ftext%3E%3C!-- Horizontal rule lines --%3E%3Cline x1='100' y1='820' x2='320' y2='820' stroke='%2300C896' stroke-opacity='0.06' stroke-width='1'%2F%3E%3Cline x1='580' y1='820' x2='800' y2='820' stroke='%2300C896' stroke-opacity='0.06' stroke-width='1'%2F%3E%3C%2Fsvg%3E");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 1;
-    }
-
-    @keyframes pulseGlow {
-      0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
-      50% { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NextWave Hub UK – Como Abrir seu Negócio no Reino Unido</title>
+<meta name="description" content="Guia gratuito: como abrir um negócio no Reino Unido do zero. Para brasileiros que querem independência financeira no UK."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,700;9..144,0,800;9..144,0,900;9..144,1,800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#0B1C39;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden;line-height:1.6}
+:root{
+  --navy:#0B1C39;--navy2:#122347;--navy3:#0d2048;--navydk:#070f1f;
+  --green:#00C896;--gold:#C9A96E;--grey:#8A99A6;
+  --offwh:#F0F4F8;--txdk:#1F2933;
+  --lgbg:#E6F7F2;--ldbg:#FAF5EB;
+}
+/* ── LAYOUT ── */
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.container-sm{max-width:680px;margin:0 auto;padding:0 20px}
+section{position:relative;z-index:1}
+/* ── PROGRESS ── */
+#bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:999;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .1s}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,28,57,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,200,150,.1)}
+.nav-gold{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5}
+.nav-inner{max-width:1100px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--green),var(--gold));border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-text{font-family:'Fraunces',serif;font-weight:800;font-size:15px;letter-spacing:-.02em;color:#fff}
+.logo-text span{color:var(--green)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:14px;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-mobile{display:none}
+/* ── BUTTONS ── */
+.btn-green{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--green);color:var(--navy);font-weight:700;font-size:15px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:all .2s;padding:13px 28px}
+.btn-green:hover{background:#00dfa8;transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,200,150,.4)}
+.btn-gold{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--gold),#e8c97e);color:#1a0f00;font-weight:700;font-size:15px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;transition:all .2s;padding:13px 28px}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,169,110,.45);filter:brightness(1.06)}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--green);border:1.5px solid var(--green);font-weight:700;font-size:15px;border-radius:8px;cursor:pointer;text-decoration:none;transition:all .2s;padding:12px 28px}
+.btn-ghost:hover{background:rgba(0,200,150,.1);transform:translateY(-2px)}
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.bg-green{background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.25);color:var(--green)}
+.bg-gold{background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.3);color:var(--gold)}
+/* ── DIVIDERS ── */
+.divider{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(0,200,150,.15),rgba(201,169,110,.3),rgba(0,200,150,.15),transparent)}
+/* ── INPUTS ── */
+.inp{display:block;width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:15px;padding:14px 16px;outline:none;transition:all .2s}
+.inp::placeholder{color:rgba(255,255,255,.32)}
+.inp:focus{border-color:var(--green);background:rgba(0,200,150,.05);box-shadow:0 0 0 3px rgba(0,200,150,.12)}
+label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px}
+/* ── CARDS ── */
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;transition:all .3s}
+.card:hover{border-color:rgba(0,200,150,.22);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.2)}
+/* ── SECTION LABEL ── */
+.slabel{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+/* ── SECTION HEADING ── */
+.sh{font-family:'Fraunces',serif;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+/* ── GRID BACKGROUNDS ── */
+.grid-bg{background-image:linear-gradient(rgba(0,200,150,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,150,.04) 1px,transparent 1px);background-size:52px 52px}
+/* ── BLOBS ── */
+.blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+/* ── WA FLOAT ── */
+#wa{position:fixed;bottom:26px;right:22px;z-index:200;width:56px;height:56px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.5);transition:transform .2s}
+#wa:hover{transform:scale(1.1)}
+/* ── PAIN ICON ── */
+.pain-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,100,100,.08);border:1px solid rgba(255,100,100,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* ── CHECK CIRCLE ── */
+.chk{width:22px;height:22px;border-radius:50%;background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.3);color:var(--green);font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+/* ── STEP CIRCLE ── */
+.step-n{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green),#00a87e);color:var(--navy);font-family:'Fraunces',serif;font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* ── BOXES ── */
+.box-green{background:var(--lgbg);border-left:3px solid var(--green);border-radius:8px;padding:16px 20px}
+.box-gold{background:var(--ldbg);border-left:3px solid var(--gold);border-radius:8px;padding:16px 20px}
+.box-amber{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:8px;padding:16px 20px}
+.box-green .bt{color:var(--green);font-weight:700;font-size:14px;margin-bottom:6px}
+.box-gold .bt{color:#8b6914;font-weight:700;font-size:14px;margin-bottom:6px}
+.box-amber .bt{color:#92400e;font-weight:700;font-size:14px;margin-bottom:6px}
+.box-green p,.box-gold p,.box-amber p{color:var(--txdk);font-size:14px;line-height:1.7}
+/* ── TRACK BAR ── */
+.track{height:6px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:6px}
+.track-fill{height:100%;border-radius:3px}
+/* ── TESTIMONIAL ── */
+.tcard{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px;transition:border-color .3s}
+.tcard:hover{border-color:rgba(201,169,110,.2)}
+/* ── FAQ ── */
+details{cursor:pointer;padding:18px 20px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);transition:all .3s}
+details:hover{border-color:rgba(0,200,150,.2)}
+summary{font-weight:600;font-size:15px;color:rgba(255,255,255,.9);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+summary::-webkit-details-marker{display:none}
+.faq-icon{color:var(--green);font-size:20px;font-weight:700;flex-shrink:0;transition:transform .3s}
+details[open] .faq-icon{transform:rotate(45deg)}
+.faq-body{font-size:14px;color:rgba(255,255,255,.55);line-height:1.7;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07)}
+/* ── FORM WRAPPER ── */
+.form-wrap{background:linear-gradient(145deg,#122347,#0d2048);border:1px solid rgba(0,200,150,.2);border-radius:20px;overflow:hidden;position:relative}
+.form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--gold))}
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-mobile{display:block}
+  .hero-grid{flex-direction:column}
+  .two-col{flex-direction:column}
+  .three-col{flex-direction:column}
+  .guide-grid{flex-direction:column}
+  .pain-grid{grid-template-columns:1fr}
+  .benefit-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .benefit-grid{grid-template-columns:1fr}
+  .tcard-grid{flex-direction:column}
+}
+</style>
 </head>
 <body>
 
-<!-- Scroll progress -->
-<div id="progress"></div>
+<div id="bar"></div>
 
-<!-- ─────────────────────────── NAV ─────────────────────────── -->
+<!-- NAV -->
+<div class="nav-gold"></div>
 <nav>
-  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-2.5">
-      <span style="width:32px;height:32px;background:linear-gradient(135deg,#00C896,#C9A96E);border-radius:6px;display:flex;align-items:center;justify-content:center;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17l4-8 4 4 4-6 4 6" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="13" r="2" fill="#0B1C39"/></svg>
-      </span>
-      <span style="font-family:'Fraunces',serif;font-weight:800;font-size:15px;letter-spacing:-0.01em;">
-        NextWave <span style="color:#00C896;">Hub</span> UK
-      </span>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-8 4 4 4-6 4 6" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="logo-text">NextWave <span>Hub</span> UK</span>
     </a>
-    <div class="hidden md:flex items-center gap-8">
-      <a href="#paths" style="font-size:14px;color:rgba(255,255,255,0.65);" class="hover:text-white transition-colors">Trilhas</a>
-      <a href="#about" style="font-size:14px;color:rgba(255,255,255,0.65);" class="hover:text-white transition-colors">Sobre</a>
-      <a href="#lead" class="btn-primary text-sm px-5 py-2.5">Começar Agora →</a>
+    <div class="nav-links">
+      <a href="#problema">Por que é difícil</a>
+      <a href="#guia">O guia</a>
+      <a href="#form">Baixar grátis</a>
+      <a href="#form" class="btn-green" style="font-size:13px;padding:10px 20px;">Quero o guia →</a>
     </div>
-    <a href="#lead" class="md:hidden btn-primary text-sm px-4 py-2">Começar →</a>
+    <a href="#form" class="btn-green nav-mobile" style="font-size:13px;padding:10px 18px;">Guia Grátis →</a>
   </div>
 </nav>
 
-<!-- ─────────────────────────── HERO ─────────────────────────── -->
-<section class="hero-gradient grid-bg relative pt-32 pb-24 px-5 overflow-hidden" id="hero">
-  <div class="gold-bar w-full absolute top-0 left-0 right-0"></div>
-
-  <!-- Blobs -->
-  <div class="blob w-96 h-96 bg-emerald-500 opacity-10 -top-24 -right-24" style="background:#00C896;"></div>
-  <div class="blob w-72 h-72 bg-blue-500 opacity-10 bottom-0 -left-16" style="background:#0066CC;"></div>
-
-  <div class="max-w-4xl mx-auto text-center relative z-10">
-    <div class="badge mb-8 reveal" style="border-color:rgba(201,169,110,0.35);color:#C9A96E;background:rgba(201,169,110,0.08);">
-      <span>🇬🇧</span> Para brasileiros no Reino Unido
-    </div>
-
-    <h1 class="reveal" style="font-family:'Fraunces',serif;font-size:clamp(2.2rem,6vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-0.01em;margin-bottom:1.5rem;transition-delay:0.1s;">
-      Construa renda e <span style="color:#00C896;font-style:italic;">patrimônio</span><br/>no Reino Unido
+<!-- HERO -->
+<section class="grid-bg" id="hero" style="padding:130px 0 80px;overflow:hidden">
+  <div class="blob" style="width:400px;height:400px;background:var(--green);opacity:.07;top:-120px;right:-100px"></div>
+  <div class="blob" style="width:300px;height:300px;background:var(--gold);opacity:.05;bottom:-80px;left:-80px"></div>
+  <div class="container-sm" style="position:relative;z-index:2;text-align:center">
+    <div class="badge bg-gold" style="margin-bottom:24px">🇬🇧 Para brasileiros no Reino Unido</div>
+    <h1 class="sh" style="font-size:clamp(2.4rem,6vw,4rem);margin-bottom:20px">
+      Pare de sonhar com ter<br/>
+      <span style="color:var(--green);font-style:italic">seu próprio negócio</span><br/>
+      no Reino Unido.
     </h1>
-
-    <p class="reveal" style="font-size:clamp(1rem,2.5vw,1.2rem);color:rgba(255,255,255,0.65);max-width:560px;margin:0 auto 2.5rem;line-height:1.7;transition-delay:0.2s;">
-      Aprenda a montar um negócio de pintura ou investir na bolsa britânica. Educação prática para quem quer crescer de verdade no UK.
+    <p style="font-size:1.1rem;color:rgba(255,255,255,.65);line-height:1.75;max-width:520px;margin:0 auto 32px">
+      Aprenda como abrir qualquer tipo de negócio no UK — do zero, sem enrolação e sem precisar falar inglês perfeito. Um guia prático, em português, feito por quem já passou por isso.
     </p>
-
-    <div class="reveal flex flex-col sm:flex-row gap-4 justify-center" style="transition-delay:0.3s;">
-      <a href="#paths" class="btn-primary text-base px-8 py-4">
-        Começar Agora
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#lead" class="btn-outline text-base px-8 py-4">
-        Guia Grátis 📘
-      </a>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px">
+      <a href="#form" class="btn-gold" style="font-size:17px;padding:16px 36px">📥 Baixar o Guia Grátis</a>
+      <a href="#guia" class="btn-ghost" style="font-size:16px;padding:15px 28px">Ver o que tem no guia</a>
     </div>
-
-    <!-- Social proof strip -->
-    <div class="reveal mt-14 flex flex-wrap justify-center gap-10" style="transition-delay:0.4s;">
-      <div class="text-center">
-        <div class="stat-num" style="font-size:1.8rem;font-weight:800;">500+</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:2px;">Alunos activos</div>
-      </div>
-      <div style="width:1px;background:rgba(255,255,255,0.1);" class="hidden sm:block"></div>
-      <div class="text-center">
-        <div class="stat-num" style="font-size:1.8rem;font-weight:800;">2 trilhas</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:2px;">Negócio & Investimento</div>
-      </div>
-      <div style="width:1px;background:rgba(255,255,255,0.1);" class="hidden sm:block"></div>
-      <div class="text-center">
-        <div class="stat-num" style="font-size:1.8rem;font-weight:800;color:#C9A96E;">100% UK</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:2px;">Conteúdo relevante</div>
-      </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;padding-top:28px;border-top:1px solid rgba(255,255,255,.07)">
+      <span style="font-size:13px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px"><span style="color:var(--green)">✓</span> 100% gratuito</span>
+      <span style="font-size:13px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px"><span style="color:var(--green)">✓</span> Em português do Brasil</span>
+      <span style="font-size:13px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px"><span style="color:var(--green)">✓</span> Focado na realidade do UK</span>
+      <span style="font-size:13px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px"><span style="color:var(--green)">✓</span> Sem enrolação</span>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="divider"/>
 
-<!-- ─────────────────────────── TWO PATHS ─────────────────────────── -->
-<section id="paths" class="py-24 px-5" style="background:linear-gradient(180deg,#0d2048 0%,#0B1C39 100%);">
-  <div class="max-w-6xl mx-auto">
-
-    <div class="text-center mb-16 reveal">
-      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;"><span style="flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,transparent,#C9A96E);opacity:0.5;"></span><div class="badge" style="border-color:rgba(201,169,110,0.35);color:#C9A96E;background:rgba(201,169,110,0.08);">Escolha sua trilha</div><span style="flex:1;max-width:80px;height:1px;background:linear-gradient(270deg,transparent,#C9A96E);opacity:0.5;"></span></div>
-      <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-0.01em;">
-        Dois caminhos. Uma <span style="color:#00C896;font-style:italic;">missão</span>.
-      </h2>
-      <p style="color:rgba(255,255,255,0.5);margin-top:0.8rem;font-size:1rem;">Escolha a trilha que faz sentido para você agora.</p>
+<!-- PROBLEMA -->
+<section id="problema" style="padding:80px 0;background:linear-gradient(180deg,var(--navy3),var(--navy))">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:52px">
+      <span class="slabel">A realidade de muita gente</span>
+      <h2 class="sh" style="font-size:clamp(1.9rem,4vw,2.8rem)">Você quer empreender no UK,<br/>mas <span style="color:#ff6b6b;font-style:italic">ninguém te explica como</span>.</h2>
     </div>
+    <div class="pain-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
 
-    <div class="grid md:grid-cols-2 gap-8">
-
-      <!-- Card 1: Pintura -->
-      <div class="glass rounded-2xl p-8 reveal" style="border-top:2px solid rgba(201,169,110,0.25);">
-        <div style="width:56px;height:56px;background:rgba(0,200,150,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;border:1px solid rgba(0,200,150,0.2);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 20h20M4 20V10l8-7 8 7v10" stroke="#00C896" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="9" y="13" width="6" height="7" rx="1" stroke="#00C896" stroke-width="1.8"/>
-            <path d="M17 4h3v4" stroke="#00C896" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+      <div class="card" style="padding:24px;display:flex;gap:18px;align-items:flex-start">
+        <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#ff6b6b" stroke-width="1.8"/><path d="M12 8v4M12 16h.01" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">"Nem sei por onde começar"</h4>
+          <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.65">Você tem a ideia e a vontade — mas na hora de dar o primeiro passo, trava. Onde me registro? Qual estrutura escolher? E se eu errar?</p>
         </div>
-        <div class="badge mb-4" style="font-size:11px;">Negócio</div>
-        <h3 style="font-family:'Fraunces',serif;font-size:1.5rem;font-weight:800;margin-bottom:0.8rem;letter-spacing:-0.01em;">
-          Negócio de Pintura<br/>no Reino Unido
-        </h3>
-        <p style="color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:1.5rem;font-size:0.95rem;">
-          Aprenda a conseguir clientes, precificar trabalhos e construir uma empresa de pintura residencial e comercial lucrativa no UK — mesmo começando do zero.
-        </p>
-        <ul style="margin-bottom:2rem;display:flex;flex-direction:column;gap:10px;">
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-            <span style="color:#00C896;font-size:16px;">✓</span> Como registrar seu negócio no UK
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-            <span style="color:#00C896;font-size:16px;">✓</span> Estratégias para conseguir os primeiros clientes
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-            <span style="color:#00C896;font-size:16px;">✓</span> Como precificar e fechar contratos
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-            <span style="color:#00C896;font-size:16px;">✓</span> Gestão financeira e crescimento do negócio
-          </li>
-        </ul>
-        <a href="#lead" class="btn-primary w-full justify-center py-3.5 text-sm">
-          Quero aprender pintura →
-        </a>
       </div>
 
-      <!-- Card 2: Investimentos -->
-      <div class="glass rounded-2xl p-8 reveal" style="transition-delay:0.15s;border-top:2px solid rgba(201,169,110,0.25);">
-        <div style="width:56px;height:56px;background:rgba(0,200,150,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;border:1px solid rgba(0,200,150,0.2);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" stroke="#00C896" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="16 7 22 7 22 13" stroke="#00C896" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+      <div class="card" style="padding:24px;display:flex;gap:18px;align-items:flex-start">
+        <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#ff6b6b" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Medo da burocracia britânica</h4>
+          <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.65">HMRC, Companies House, UTR, NIN… tudo em inglês, tudo confuso. Parece que só quem nasceu aqui entende esse sistema.</p>
         </div>
-        <div class="badge mb-4" style="font-size:11px;">Investimento</div>
-        <h3 style="font-family:'Fraunces',serif;font-size:1.5rem;font-weight:800;margin-bottom:0.8rem;letter-spacing:-0.01em;">
-          Investimentos<br/>no UK
-        </h3>
-        <p style="color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:1.5rem;font-size:0.95rem;">
-          Entenda como funciona o mercado financeiro britânico, ISA, corretoras e ETFs. Aprenda a investir com consistência e construir patrimônio de longo prazo no UK.
-        </p>
-        <ul style="margin-bottom:2rem;display:flex;flex-direction:column;gap:10px;">
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-            <span style="color:#00C896;font-size:16px;">✓</span> ISA, SIPP e contas de investimento no UK
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-            <span style="color:#00C896;font-size:16px;">✓</span> Como escolher ETFs e ações britânicas
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-            <span style="color:#00C896;font-size:16px;">✓</span> Plataformas: Freetrade, Hargreaves e mais
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,0.7);">
-            <span style="color:#00C896;font-size:16px;">✓</span> Estratégia de carteira para o longo prazo
-          </li>
-        </ul>
-        <a href="#lead" class="btn-primary w-full justify-center py-3.5 text-sm">
-          Quero investir melhor →
-        </a>
+      </div>
+
+      <div class="card" style="padding:24px;display:flex;gap:18px;align-items:flex-start">
+        <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z" stroke="#ff6b6b" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Ninguém do seu redor sabe ajudar</h4>
+          <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.65">Pergunta pro amigo, ele não sabe. Pesquisa no Google em inglês, não entende. Tenta consultoria, custa caro. E continua parado.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px;display:flex;gap:18px;align-items:flex-start">
+        <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><line x1="12" y1="1" x2="12" y2="23" stroke="#ff6b6b" stroke-width="1.8" stroke-linecap="round"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#ff6b6b" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Medo de perder dinheiro</h4>
+          <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.65">Você trabalhou muito pra ter o que tem. A ideia de arriscar e dar errado paralisa. Mas ficar parado também não é opção.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:44px">
+      <div class="box-green" style="display:inline-block;max-width:620px;text-align:center;border-left:none;border:1px solid rgba(0,200,150,.2);border-radius:14px;padding:24px 32px">
+        <p style="font-size:1.05rem;line-height:1.75;color:var(--txdk);margin-bottom:16px">E se você tivesse um guia completo, em português, explicando tudo passo a passo — sem juridiquês e sem enrolação?</p>
+        <a href="#form" class="btn-green">É exatamente isso que eu criei →</a>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="divider"/>
 
-<!-- ─────────────────────────── LEAD CAPTURE ─────────────────────────── -->
-<section id="lead" class="py-24 px-5 relative overflow-hidden" style="background:#0B1C39;">
+<!-- GUIA -->
+<section id="guia" style="padding:80px 0;background:var(--navy)">
+  <div class="container">
+    <div class="guide-grid" style="display:flex;gap:60px;align-items:center">
 
-  <div class="blob w-80 h-80 opacity-10 top-0 right-0" style="background:#00C896;"></div>
-
-  <div class="max-w-2xl mx-auto text-center relative z-10">
-    <div class="badge mb-6 reveal">📘 Guia Gratuito</div>
-    <h2 class="reveal" style="font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.01em;margin-bottom:1rem;transition-delay:0.1s;">
-      Baixe grátis: <span style="color:#00C896;">Guia Prático</span>
-    </h2>
-    <p class="reveal" style="color:rgba(255,255,255,0.6);margin-bottom:0.4rem;font-size:1rem;transition-delay:0.15s;">
-      Como ganhar mais dinheiro no Reino Unido
-    </p>
-    <p class="reveal" style="color:rgba(255,255,255,0.4);margin-bottom:2.5rem;font-size:0.88rem;transition-delay:0.2s;">
-      Estratégias práticas para brasileiros no UK — negócio, investimento e crescimento financeiro.
-    </p>
-
-    <!-- Form -->
-    <div class="glass rounded-2xl p-8 reveal" style="transition-delay:0.25s;">
-      <div class="flex flex-col sm:flex-row gap-3">
-        <input
-          type="text"
-          placeholder="Seu primeiro nome"
-          class="input-field flex-1 px-4 py-3.5 text-sm"
-        />
-        <input
-          type="email"
-          placeholder="Seu melhor e-mail"
-          class="input-field flex-1 px-4 py-3.5 text-sm"
-        />
+      <!-- Mockup -->
+      <div style="flex:1;min-width:0">
+        <div style="background:linear-gradient(145deg,var(--navy2),var(--navy3));border:1px solid rgba(0,200,150,.22);border-radius:20px;padding:30px;position:relative;box-shadow:0 40px 80px rgba(0,0,0,.4)">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:20px 20px 0 0"></div>
+          <div class="badge bg-gold" style="margin-bottom:16px;font-size:10px">📥 Download gratuito</div>
+          <h3 class="sh" style="font-size:1.5rem;margin-bottom:8px;line-height:1.2">Como Abrir seu Negócio<br/>no Reino Unido</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px">Guia prático • Em português • Para brasileiros no UK</p>
+          <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px">
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(0,200,150,.05);border:1px solid rgba(0,200,150,.1);border-radius:8px;padding:10px 14px">
+              <span style="font-size:16px">🛂</span>
+              <div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.85)">Vistos e estado imigratório</div><div style="font-size:11px;color:rgba(255,255,255,.35)">Capítulo 1</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(0,200,150,.05);border:1px solid rgba(0,200,150,.1);border-radius:8px;padding:10px 14px">
+              <span style="font-size:16px">⚖️</span>
+              <div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.85)">Sole Trader vs Limited Company</div><div style="font-size:11px;color:rgba(255,255,255,.35)">Capítulo 2</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(0,200,150,.05);border:1px solid rgba(0,200,150,.1);border-radius:8px;padding:10px 14px">
+              <span style="font-size:16px">🏛️</span>
+              <div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.85)">Registro no HMRC passo a passo</div><div style="font-size:11px;color:rgba(255,255,255,.35)">Capítulo 3</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(201,169,110,.05);border:1px solid rgba(201,169,110,.12);border-radius:8px;padding:10px 14px">
+              <span style="font-size:16px">🎯</span>
+              <div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.85)">Como conseguir os primeiros clientes</div><div style="font-size:11px;color:rgba(255,255,255,.35)">Capítulo 4</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(201,169,110,.05);border:1px solid rgba(201,169,110,.12);border-radius:8px;padding:10px 14px">
+              <span style="font-size:16px">🚫</span>
+              <div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.85)">Erros comuns e como evitá-los</div><div style="font-size:11px;color:rgba(255,255,255,.35)">Capítulo 5</div></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid rgba(255,255,255,.07)">
+            <div style="display:flex;gap:18px">
+              <div style="text-align:center"><div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:800;color:var(--green)">8</div><div style="font-size:10px;color:rgba(255,255,255,.35)">capítulos</div></div>
+              <div style="text-align:center"><div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:800;color:var(--gold)">PDF</div><div style="font-size:10px;color:rgba(255,255,255,.35)">formato</div></div>
+              <div style="text-align:center"><div style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:800;color:#fff">BR</div><div style="font-size:10px;color:rgba(255,255,255,.35)">português</div></div>
+            </div>
+            <div style="background:rgba(0,200,150,.12);border:1px solid rgba(0,200,150,.25);border-radius:8px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--green)">GRÁTIS</div>
+          </div>
+        </div>
       </div>
-      <button class="btn-primary w-full justify-center py-4 mt-4 text-base">
-        Baixar grátis agora
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px;">
-        🔒 Sem spam. Seus dados estão seguros. Cancele quando quiser.
-      </p>
-    </div>
 
-    <!-- What's inside -->
-    <div class="reveal mt-8 grid grid-cols-3 gap-4 text-center" style="transition-delay:0.35s;">
-      <div class="glass rounded-xl p-4">
-        <div style="margin-bottom:10px;display:flex;justify-content:center;"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="g1" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00C896" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#00C896" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00C896"/>
-      <stop offset="100%" stop-color="#00a87e"/>
-    </linearGradient>
-  </defs>
-  <circle cx="32" cy="32" r="30" fill="url(#g1)"/>
-  <circle cx="32" cy="32" r="29" stroke="#00C896" stroke-opacity="0.12" stroke-width="1"/>
-  <!-- Building body -->
-  <rect x="14" y="30" width="26" height="22" rx="1.5" fill="rgba(0,200,150,0.08)" stroke="url(#lg1)" stroke-width="1.8" stroke-linejoin="round"/>
-  <!-- Roof -->
-  <path d="M12 31L27 18l15 13" stroke="url(#lg1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Door -->
-  <rect x="23" y="40" width="7" height="12" rx="1" fill="rgba(0,200,150,0.15)" stroke="#00C896" stroke-width="1.5"/>
-  <!-- Window -->
-  <rect x="15" y="34" width="7" height="5" rx="1" fill="rgba(0,200,150,0.2)" stroke="#00C896" stroke-width="1.3"/>
-  <!-- Paint roller handle -->
-  <line x1="42" y1="18" x2="42" y2="30" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
-  <!-- Paint roller head -->
-  <rect x="38" y="14" width="12" height="6" rx="3" fill="rgba(201,169,110,0.15)" stroke="#C9A96E" stroke-width="1.8"/>
-  <!-- Paint drip -->
-  <path d="M44 20 Q44 25 43 27" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
-</svg></div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.6);">Como montar seu negócio</div>
-      </div>
-      <div class="glass rounded-xl p-4">
-        <div style="margin-bottom:10px;display:flex;justify-content:center;"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="g2" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00C896" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#00C896" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="lg2" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#00C896" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#00C896"/>
-    </linearGradient>
-  </defs>
-  <circle cx="32" cy="32" r="30" fill="url(#g2)"/>
-  <circle cx="32" cy="32" r="29" stroke="#00C896" stroke-opacity="0.12" stroke-width="1"/>
-  <!-- Grid lines subtle -->
-  <line x1="13" y1="46" x2="51" y2="46" stroke="#00C896" stroke-opacity="0.15" stroke-width="1"/>
-  <line x1="13" y1="37" x2="51" y2="37" stroke="#00C896" stroke-opacity="0.1" stroke-width="1" stroke-dasharray="2 3"/>
-  <line x1="13" y1="28" x2="51" y2="28" stroke="#00C896" stroke-opacity="0.1" stroke-width="1" stroke-dasharray="2 3"/>
-  <!-- Candle 1 (down) -->
-  <line x1="19" y1="33" x2="19" y2="42" stroke="rgba(255,255,255,0.25)" stroke-width="1.2"/>
-  <rect x="16" y="37" width="6" height="8" rx="1" fill="rgba(255,80,80,0.2)" stroke="rgba(255,100,100,0.5)" stroke-width="1.2"/>
-  <!-- Candle 2 (up) -->
-  <line x1="29" y1="28" x2="29" y2="38" stroke="#00C896" stroke-width="1.2" stroke-opacity="0.6"/>
-  <rect x="26" y="30" width="6" height="9" rx="1" fill="rgba(0,200,150,0.25)" stroke="#00C896" stroke-width="1.5"/>
-  <!-- Candle 3 (up, tallest) -->
-  <line x1="39" y1="22" x2="39" y2="34" stroke="#00C896" stroke-width="1.2" stroke-opacity="0.6"/>
-  <rect x="36" y="24" width="6" height="11" rx="1" fill="rgba(0,200,150,0.35)" stroke="#00C896" stroke-width="1.5"/>
-  <!-- Upward arrow -->
-  <path d="M46 18 L50 14 L54 18" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <line x1="50" y1="14" x2="50" y2="26" stroke="#C9A96E" stroke-width="2" stroke-linecap="round"/>
-  <!-- £ symbol -->
-  <text x="10" y="26" font-family="Georgia,serif" font-size="11" font-weight="700" fill="#C9A96E" opacity="0.8">£</text>
-</svg></div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.6);">Investindo no UK do zero</div>
-      </div>
-      <div class="glass rounded-xl p-4">
-        <div style="margin-bottom:10px;display:flex;justify-content:center;"><svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="g3" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00C896" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#00C896" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="lg3" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00C896"/>
-      <stop offset="100%" stop-color="#00a87e"/>
-    </linearGradient>
-  </defs>
-  <circle cx="32" cy="32" r="30" fill="url(#g3)"/>
-  <circle cx="32" cy="32" r="29" stroke="#00C896" stroke-opacity="0.12" stroke-width="1"/>
-  <!-- Shield -->
-  <path d="M32 12 L48 19 L48 33 C48 42 40 49 32 52 C24 49 16 42 16 33 L16 19 Z" fill="rgba(0,200,150,0.08)" stroke="url(#lg3)" stroke-width="1.8" stroke-linejoin="round"/>
-  <!-- Inner shield subtle -->
-  <path d="M32 17 L44 22.5 L44 33 C44 39.5 38 45 32 47.5 C26 45 20 39.5 20 33 L20 22.5 Z" fill="rgba(0,200,150,0.05)" stroke="#00C896" stroke-width="1" stroke-opacity="0.3" stroke-linejoin="round"/>
-  <!-- £ symbol centred -->
-  <text x="26.5" y="38" font-family="Georgia,serif" font-size="18" font-weight="800" fill="url(#lg3)">£</text>
-  <!-- Small crown dots at top -->
-  <circle cx="32" cy="14.5" r="1.5" fill="#C9A96E"/>
-  <circle cx="27" cy="16" r="1" fill="#C9A96E" opacity="0.6"/>
-  <circle cx="37" cy="16" r="1" fill="#C9A96E" opacity="0.6"/>
-</svg></div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.6);">Vida financeira no UK</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- ─────────────────────────── ABOUT ─────────────────────────── -->
-<section id="about" class="py-24 px-5" style="background:linear-gradient(180deg,#0d2048 0%,#0B1C39 100%);">
-  <div class="max-w-6xl mx-auto">
-    <div class="grid md:grid-cols-2 gap-16 items-center">
-      <!-- Left -->
-      <div class="reveal">
-        <div class="badge mb-6" style="border-color:rgba(201,169,110,0.35);color:#C9A96E;background:rgba(201,169,110,0.08);">Nossa missão</div>
-        <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.01em;margin-bottom:1.2rem;line-height:1.15;">
-          Educação que <span style="color:#00C896;font-style:italic;">transforma</span> a vida financeira
+      <!-- Copy -->
+      <div style="flex:1;min-width:0">
+        <span class="slabel">A solução que você precisava</span>
+        <h2 class="sh" style="font-size:clamp(1.8rem,3.5vw,2.5rem);margin-bottom:16px;line-height:1.15">
+          O guia que ninguém<br/>te deu quando você<br/>chegou aqui.
         </h2>
-        <p style="color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:1.2rem;font-size:0.97rem;">
-          A NextWave Hub UK nasceu para preencher uma lacuna real: brasileiros chegam ao UK cheios de garra, mas sem acesso a educação financeira e de negócios adaptada à realidade britânica.
+        <p style="color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:14px;font-size:.97rem">
+          Criei esse guia porque eu mesmo precisei dele. Quando cheguei no UK e quis empreender, tive que aprender tudo na raça — errando, pesquisando, pagando caro por isso.
         </p>
-        <p style="color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:2rem;font-size:0.97rem;">
-          Aqui você aprende com quem já passou pelo mesmo caminho. Conteúdo prático, direto ao ponto, sem enrolação. Educação financeira para o mundo real — o <em>seu</em> mundo.
+        <p style="color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:28px;font-size:.97rem">
+          Agora coloquei tudo que aprendi num material gratuito, em português, direto ao ponto. Pra você não precisar passar pelo que eu passei.
         </p>
-        <div class="flex flex-wrap gap-3">
-          <span class="badge">✓ Educativo</span>
-          <span class="badge">✓ Prático</span>
-          <span class="badge">✓ Em português</span>
-          <span class="badge">✓ Feito para o UK</span>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px">
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div class="chk">✓</div>
+            <div><strong style="color:rgba(255,255,255,.9)">Inclui capítulo de vistos e imigração</strong><br/><span style="font-size:13px;color:rgba(255,255,255,.5)">Saiba se o seu visto permite abrir negócio antes de qualquer passo.</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div class="chk">✓</div>
+            <div><strong style="color:rgba(255,255,255,.9)">Passo a passo real e aplicável</strong><br/><span style="font-size:13px;color:rgba(255,255,255,.5)">Não é teoria. É o que funciona na prática, aqui no UK.</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div class="chk">✓</div>
+            <div><strong style="color:rgba(255,255,255,.9)">Feito para quem está começando do zero</strong><br/><span style="font-size:13px;color:rgba(255,255,255,.5)">Sem experiência? Perfeito. Foi exatamente pra você que escrevi.</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div class="chk" style="background:rgba(201,169,110,.12);border-color:rgba(201,169,110,.3);color:var(--gold)">✓</div>
+            <div><strong style="color:rgba(255,255,255,.9)">Vale pra qualquer tipo de negócio</strong><br/><span style="font-size:13px;color:rgba(255,255,255,.5)">Serviços, produtos, online, presencial — serve pra tudo.</span></div>
+          </div>
         </div>
-      </div>
-      <!-- Right: Feature blocks -->
-      <div class="reveal grid grid-cols-2 gap-4" style="transition-delay:0.15s;">
-        <div class="glass rounded-xl p-5">
-          <div style="margin-bottom:14px;"><svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="g4" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00C896" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#00C896" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="lg4" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00C896"/>
-      <stop offset="100%" stop-color="#00a87e"/>
-    </linearGradient>
-  </defs>
-  <circle cx="30" cy="30" r="28" fill="url(#g4)"/>
-  <circle cx="30" cy="30" r="27" stroke="#00C896" stroke-opacity="0.1" stroke-width="1"/>
-  <!-- Open book left page -->
-  <path d="M30 17 C30 17 22 18 14 22 L14 44 C22 40 30 41 30 41 Z" fill="rgba(0,200,150,0.1)" stroke="url(#lg4)" stroke-width="1.8" stroke-linejoin="round"/>
-  <!-- Open book right page -->
-  <path d="M30 17 C30 17 38 18 46 22 L46 44 C38 40 30 41 30 41 Z" fill="rgba(0,200,150,0.07)" stroke="url(#lg4)" stroke-width="1.8" stroke-linejoin="round"/>
-  <!-- Spine -->
-  <line x1="30" y1="17" x2="30" y2="41" stroke="#00C896" stroke-width="1.8" stroke-linecap="round"/>
-  <!-- Left page lines -->
-  <line x1="17" y1="27" x2="27" y2="25" stroke="#00C896" stroke-opacity="0.4" stroke-width="1.2" stroke-linecap="round"/>
-  <line x1="17" y1="32" x2="27" y2="30" stroke="#00C896" stroke-opacity="0.4" stroke-width="1.2" stroke-linecap="round"/>
-  <line x1="17" y1="37" x2="27" y2="35" stroke="#00C896" stroke-opacity="0.4" stroke-width="1.2" stroke-linecap="round"/>
-  <!-- Right page lines -->
-  <line x1="33" y1="25" x2="43" y2="27" stroke="#00C896" stroke-opacity="0.4" stroke-width="1.2" stroke-linecap="round"/>
-  <line x1="33" y1="30" x2="43" y2="32" stroke="#00C896" stroke-opacity="0.4" stroke-width="1.2" stroke-linecap="round"/>
-  <!-- Sparkle star top right -->
-  <path d="M47 14 L48.2 17.2 L51.5 18 L48.2 19.5 L47 22.5 L45.8 19.5 L42.5 18 L45.8 17.2 Z" fill="#C9A96E" opacity="0.9"/>
-  <circle cx="44" cy="13" r="1" fill="#C9A96E" opacity="0.5"/>
-</svg></div>
-          <h4 style="font-family:'Fraunces',serif;font-size:0.95rem;font-weight:700;margin-bottom:4px;">Conteúdo relevante</h4>
-          <p style="font-size:12px;color:rgba(255,255,255,0.5);">Tudo adaptado à realidade do UK</p>
-        </div>
-        <div class="glass rounded-xl p-5">
-          <div style="margin-bottom:14px;"><svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="g5" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00C896" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#00C896" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="lg5" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00C896"/>
-      <stop offset="100%" stop-color="#00a87e"/>
-    </linearGradient>
-  </defs>
-  <circle cx="30" cy="30" r="28" fill="url(#g5)"/>
-  <circle cx="30" cy="30" r="27" stroke="#00C896" stroke-opacity="0.1" stroke-width="1"/>
-  <!-- Person circle -->
-  <circle cx="30" cy="20" r="7.5" fill="rgba(0,200,150,0.1)" stroke="url(#lg5)" stroke-width="1.8"/>
-  <!-- Body/shoulders -->
-  <path d="M14 46 C14 37 21 32 30 32 C39 32 46 37 46 46" stroke="url(#lg5)" stroke-width="1.8" stroke-linecap="round" fill="rgba(0,200,150,0.05)"/>
-  <!-- Graduation cap flat -->
-  <path d="M22 17 L30 13 L38 17 L30 21 Z" fill="#C9A96E" opacity="0.85"/>
-  <line x1="30" y1="17" x2="30" y2="21" stroke="#C9A96E" stroke-width="1.2"/>
-  <line x1="38" y1="17" x2="38" y2="22" stroke="#C9A96E" stroke-width="1.4" stroke-linecap="round"/>
-  <circle cx="38" cy="23" r="1.5" fill="#C9A96E" opacity="0.8"/>
-  <!-- Check mark badge -->
-  <circle cx="44" cy="42" r="7" fill="#0B1C39" stroke="#00C896" stroke-width="1.5"/>
-  <path d="M41 42 L43.5 44.5 L47.5 39.5" stroke="#00C896" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg></div>
-          <h4 style="font-family:'Fraunces',serif;font-size:0.95rem;font-weight:700;margin-bottom:4px;">Mentoria real</h4>
-          <p style="font-size:12px;color:rgba(255,255,255,0.5);">Acompanhamento de quem vive no UK</p>
-        </div>
-        <div class="glass rounded-xl p-5">
-          <div style="margin-bottom:14px;"><svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="g6" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00C896" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#00C896" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="lg6" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00C896"/>
-      <stop offset="100%" stop-color="#00a87e"/>
-    </linearGradient>
-  </defs>
-  <circle cx="30" cy="30" r="28" fill="url(#g6)"/>
-  <circle cx="30" cy="30" r="27" stroke="#00C896" stroke-opacity="0.1" stroke-width="1"/>
-  <!-- Laptop body -->
-  <rect x="11" y="22" width="34" height="22" rx="2.5" fill="rgba(0,200,150,0.08)" stroke="url(#lg6)" stroke-width="1.8"/>
-  <!-- Laptop screen inner -->
-  <rect x="14" y="25" width="28" height="16" rx="1.5" fill="rgba(0,200,150,0.06)" stroke="#00C896" stroke-width="1" stroke-opacity="0.4"/>
-  <!-- Laptop base -->
-  <path d="M8 44 L52 44" stroke="url(#lg6)" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M19 44 L23 48 L37 48 L41 44" stroke="#00C896" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-  <!-- Play button on screen -->
-  <circle cx="30" cy="33" r="6" fill="rgba(0,200,150,0.2)" stroke="#00C896" stroke-width="1.4"/>
-  <polygon points="28,30 28,36 34,33" fill="#00C896"/>
-  <!-- WiFi top right -->
-  <path d="M44 15 C46.5 12.5 46.5 8.5 44 6" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
-  <path d="M47 18 C51 14 51 7 47 3" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
-  <circle cx="42" cy="17" r="1.8" fill="#C9A96E" opacity="0.9"/>
-</svg></div>
-          <h4 style="font-family:'Fraunces',serif;font-size:0.95rem;font-weight:700;margin-bottom:4px;">100% online</h4>
-          <p style="font-size:12px;color:rgba(255,255,255,0.5);">Aprenda no seu ritmo, de qualquer lugar</p>
-        </div>
-        <div class="glass rounded-xl p-5">
-          <div style="margin-bottom:14px;"><svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="g7" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00C896" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#00C896" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="lg7" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00C896"/>
-      <stop offset="100%" stop-color="#00a87e"/>
-    </linearGradient>
-    <linearGradient id="gold7" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#C9A96E"/>
-      <stop offset="100%" stop-color="#e8c97e"/>
-    </linearGradient>
-  </defs>
-  <circle cx="30" cy="30" r="28" fill="url(#g7)"/>
-  <circle cx="30" cy="30" r="27" stroke="#00C896" stroke-opacity="0.1" stroke-width="1"/>
-  <!-- Trophy cup body -->
-  <path d="M20 14 L40 14 L37 30 Q36 37 30 38 Q24 37 23 30 Z" fill="rgba(201,169,110,0.12)" stroke="url(#gold7)" stroke-width="1.8" stroke-linejoin="round"/>
-  <!-- Trophy handles -->
-  <path d="M20 16 C15 16 13 20 13 24 C13 28 16 30 20 30" stroke="url(#gold7)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-  <path d="M40 16 C45 16 47 20 47 24 C47 28 44 30 40 30" stroke="url(#gold7)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-  <!-- Trophy stem -->
-  <line x1="30" y1="38" x2="30" y2="44" stroke="url(#gold7)" stroke-width="2" stroke-linecap="round"/>
-  <!-- Trophy base -->
-  <rect x="23" y="44" width="14" height="3.5" rx="1.5" fill="rgba(201,169,110,0.2)" stroke="url(#gold7)" stroke-width="1.6"/>
-  <!-- Star inside trophy -->
-  <path d="M30 19 L31.5 23.5 L36 23.5 L32.5 26.5 L34 31 L30 28.5 L26 31 L27.5 26.5 L24 23.5 L28.5 23.5 Z" fill="url(#gold7)" opacity="0.9"/>
-  <!-- Green sparkle -->
-  <path d="M43 10 L44 13 L47 14 L44 15 L43 18 L42 15 L39 14 L42 13 Z" fill="#00C896" opacity="0.7"/>
-</svg></div>
-          <h4 style="font-family:'Fraunces',serif;font-size:0.95rem;font-weight:700;margin-bottom:4px;">Foco em resultado</h4>
-          <p style="font-size:12px;color:rgba(255,255,255,0.5);">Mais renda, mais liberdade, mais futuro</p>
-        </div>
+        <a href="#form" class="btn-gold" style="width:100%;font-size:16px;padding:16px">📥 Quero o guia grátis agora</a>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="divider"/>
 
-<!-- ─────────────────────────── TESTIMONIALS ─────────────────────────── -->
-<section class="py-20 px-5" style="background:#0B1C39;">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-12 reveal">
-      <div class="badge mb-4">Depoimentos</div>
-      <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-0.01em;">
-        O que nossos alunos dizem
+<!-- BENEFÍCIOS -->
+<section style="padding:80px 0;background:linear-gradient(180deg,var(--navy3),var(--navy))">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:52px">
+      <span class="slabel">O que você vai aprender</span>
+      <h2 class="sh" style="font-size:clamp(1.9rem,4vw,2.8rem)">Tudo que você precisa para<br/><span style="color:var(--green);font-style:italic">sair do lugar de verdade.</span></h2>
+    </div>
+    <div class="benefit-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
+      <div class="card" style="padding:24px">
+        <div style="width:46px;height:46px;border-radius:10px;background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Vistos e imigração</h4>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.65">Descubra se o seu visto permite empreender no UK antes de dar qualquer passo. Evite erros graves que podem custar o seu status migratório.</p>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <div style="width:46px;height:46px;border-radius:10px;background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="var(--green)" stroke-width="1.8"/><path d="M3 9h18M9 21V9" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Qual estrutura escolher</h4>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.65">Sole Trader ou Limited Company? Você vai entender a diferença e saber qual faz mais sentido pro seu negócio — sem precisar de advogado.</p>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <div style="width:46px;height:46px;border-radius:10px;background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Como se registrar do zero</h4>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.65">HMRC, UTR number, Companies House — tudo explicado em português. Você vai se sentir capaz de fazer sozinho.</p>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <div style="width:46px;height:46px;border-radius:10px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8 4 4 0 000 8z" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Como conseguir clientes</h4>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.65">Estratégias reais de aquisição de clientes no UK — online e offline. Sem depender só de indicação e sem precisar de grana para começar.</p>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <div style="width:46px;height:46px;border-radius:10px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="var(--gold)" stroke-width="1.8"/><path d="M12 9v4M12 17h.01" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Erros que custam caro</h4>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.65">Os 6 erros mais comuns de quem abre negócio no UK — incluindo empreender com visto errado. Aprenda com a minha experiência, não com a sua.</p>
+      </div>
+
+      <div class="card" style="padding:24px">
+        <div style="width:46px;height:46px;border-radius:10px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="var(--gold)" stroke-width="1.8"/><path d="M16 2v4M8 2v4M3 10h18" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h4 style="font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:8px">Plano de 30 dias</h4>
+        <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.65">Um cronograma prático pra você ter o negócio aberto e funcionando em menos de um mês — com tarefas claras semana por semana.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- FORM -->
+<section id="form" style="padding:80px 0;background:var(--navy);position:relative;overflow:hidden">
+  <div class="blob" style="width:400px;height:400px;background:var(--green);opacity:.05;top:-80px;right:-80px"></div>
+  <div class="blob" style="width:300px;height:300px;background:var(--gold);opacity:.04;bottom:-60px;left:-60px"></div>
+  <div class="container-sm" style="position:relative;z-index:2">
+    <div style="text-align:center;margin-bottom:36px">
+      <span class="slabel">Acesso gratuito e imediato</span>
+      <h2 class="sh" style="font-size:clamp(2rem,4.5vw,3rem);margin-bottom:12px">
+        Comece hoje.<br/><span style="color:var(--green);font-style:italic">É grátis.</span>
       </h2>
+      <p style="color:rgba(255,255,255,.5);font-size:.95rem;line-height:1.7">Preencha abaixo e receba o guia completo — agora, direto no seu e-mail.</p>
     </div>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="glass rounded-xl p-6 reveal">
-        <div style="color:#00C896;font-size:20px;margin-bottom:12px;">★★★★★</div>
-        <p style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.7;margin-bottom:16px;">
-          "Comecei do zero no UK e depois do curso de pintura já tenho meus próprios clientes. Mudou minha vida!"
-        </p>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00C896,#0066CC);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#0B1C39;">R</div>
-          <div>
-            <div style="font-size:13px;font-weight:600;">Rafael S.</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.4);">Londres, UK</div>
+
+    <div class="form-wrap">
+      <div style="padding:36px 40px">
+        <form name="guia-negocio-uk" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/obrigado.html">
+          <input type="hidden" name="form-name" value="guia-negocio-uk"/>
+          <p hidden><input name="bot-field"/></p>
+
+          <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:20px">
+            <div>
+              <label>Seu primeiro nome</label>
+              <input type="text" name="nome" placeholder="Ex: João" required class="inp"/>
+            </div>
+            <div>
+              <label>Seu melhor e-mail</label>
+              <input type="email" name="email" placeholder="Ex: joao@email.com" required class="inp"/>
+            </div>
+            <div>
+              <label>WhatsApp <span style="color:rgba(255,255,255,.3);font-weight:400;text-transform:none;font-size:12px">(opcional)</span></label>
+              <div style="position:relative">
+                <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,.35);pointer-events:none">+44</span>
+                <input type="tel" name="whatsapp" placeholder="7700 000000" class="inp" style="padding-left:52px"/>
+              </div>
+            </div>
           </div>
+
+          <button type="submit" class="btn-gold" style="width:100%;font-size:17px;padding:17px">
+            📥 Baixar o Guia Grátis Agora
+          </button>
+
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)">
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.3)">
+              <span>🔒</span> Seus dados estão 100% seguros. Não vendemos nem compartilhamos suas informações.
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.3)">
+              <span>📧</span> Você recebe o PDF imediatamente após o cadastro.
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.3)">
+              <span>🚫</span> Sem spam. Cancele quando quiser, sem complicação.
+            </div>
+          </div>
+        </form>
+
+        <div style="margin-top:18px;text-align:center">
+          <p style="font-size:12px;color:rgba(255,255,255,.25);margin-bottom:7px">Já se cadastrou?</p>
+          <a href="/guia-gratuito-nextwave.pdf" download="Guia-Como-Abrir-Negocio-UK.pdf" style="font-size:13px;color:var(--green);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            Baixar direto aqui
+          </a>
         </div>
       </div>
-      <div class="glass rounded-xl p-6 reveal" style="transition-delay:0.1s;">
-        <div style="color:#00C896;font-size:20px;margin-bottom:12px;">★★★★★</div>
-        <p style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.7;margin-bottom:16px;">
-          "Finalmente entendi como funciona o ISA e comecei a investir todo mês. Simples, prático e em português!"
-        </p>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00C896,#0066CC);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#0B1C39;">A</div>
-          <div>
-            <div style="font-size:13px;font-weight:600;">Ana P.</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.4);">Manchester, UK</div>
-          </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- DEPOIMENTOS -->
+<section style="padding:80px 0;background:linear-gradient(180deg,var(--navy3),var(--navy))">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:44px">
+      <span class="slabel">Quem já deu o primeiro passo</span>
+      <h2 class="sh" style="font-size:clamp(1.6rem,3.5vw,2.4rem)">Brasileiros que abriram seu negócio no UK</h2>
+    </div>
+    <div class="tcard-grid" style="display:flex;gap:18px">
+      <div class="tcard" style="flex:1">
+        <div style="color:var(--gold);font-size:18px;margin-bottom:12px">★★★★★</div>
+        <p style="color:rgba(255,255,255,.75);font-size:14px;line-height:1.75;margin-bottom:18px">"Fiquei 1 ano com medo de dar o passo. Depois de ler o guia, me registrei como sole trader em 2 dias. Simples assim. Só precisava de alguém me explicando direito."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),#0066CC);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--navy)">M</div>
+          <div><div style="font-size:13px;font-weight:600">Marcela R.</div><div style="font-size:11px;color:rgba(255,255,255,.35)">Manchester · Limpeza residencial</div></div>
         </div>
       </div>
-      <div class="glass rounded-xl p-6 reveal" style="transition-delay:0.2s;">
-        <div style="color:#00C896;font-size:20px;margin-bottom:12px;">★★★★★</div>
-        <p style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.7;margin-bottom:16px;">
-          "O conteúdo é direto ao ponto. Em 3 meses já triplicou minha renda com o negócio de pintura."
-        </p>
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00C896,#0066CC);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#0B1C39;">C</div>
-          <div>
-            <div style="font-size:13px;font-weight:600;">Carlos M.</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.4);">Birmingham, UK</div>
-          </div>
+      <div class="tcard" style="flex:1">
+        <div style="color:var(--gold);font-size:18px;margin-bottom:12px">★★★★★</div>
+        <p style="color:rgba(255,255,255,.75);font-size:14px;line-height:1.75;margin-bottom:18px">"O capítulo sobre vistos me salvou. Eu ia empreender com o visto errado e nem sabia. Hoje tenho o visto certo e minha limited company registrada com tudo certinho."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#c07a30);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--navy)">D</div>
+          <div><div style="font-size:13px;font-weight:600">Diego S.</div><div style="font-size:11px;color:rgba(255,255,255,.35)">Londres · Construção civil</div></div>
+        </div>
+      </div>
+      <div class="tcard" style="flex:1">
+        <div style="color:var(--gold);font-size:18px;margin-bottom:12px">★★★★★</div>
+        <p style="color:rgba(255,255,255,.75);font-size:14px;line-height:1.75;margin-bottom:18px">"Conteúdo prático e direto. Em menos de um mês depois de ler o guia, já tinha 3 clientes fixos. A parte dos erros comuns foi o que mais me ajudou."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4472C4,#2F5597);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff">P</div>
+          <div><div style="font-size:13px;font-weight:600">Priscila V.</div><div style="font-size:11px;color:rgba(255,255,255,.35)">Birmingham · Estética</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="divider"/>
 
-<!-- ─────────────────────────── FINAL CTA ─────────────────────────── -->
-<section class="py-24 px-5 relative overflow-hidden" style="background:linear-gradient(135deg,#0d2048 0%,#0B1C39 100%);">
-  <div class="blob w-96 h-96 opacity-15 -bottom-16 -left-20" style="background:#00C896;"></div>
-  <div class="max-w-3xl mx-auto text-center relative z-10">
-    <div class="reveal">
-      <h2 style="font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;letter-spacing:-0.01em;line-height:1.1;margin-bottom:1.2rem;">
-        Comece hoje a construir<br/>sua renda no <span style="color:#C9A96E;font-style:italic;">Reino Unido</span>
-      </h2>
-      <p style="color:rgba(255,255,255,0.55);font-size:1.05rem;margin-bottom:2.5rem;line-height:1.7;">
-        Seja pelo negócio de pintura ou pelos investimentos — o primeiro passo é o mais importante.<br/>E ele começa agora.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#paths" class="btn-primary text-base px-10 py-4">
-          Começar agora
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="#" class="wa-link" target="_blank" rel="noopener" class="btn-outline text-base px-10 py-4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#00C896"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.115 1.524 5.847L.057 23.57a.5.5 0 00.602.602l5.733-1.464A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.697-.503-5.245-1.383l-.375-.214-3.882.993.997-3.777-.232-.389A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Falar no WhatsApp
-        </a>
-      </div>
+<!-- FAQ -->
+<section style="padding:80px 0;background:var(--navy)">
+  <div class="container-sm">
+    <div style="text-align:center;margin-bottom:44px">
+      <span class="slabel">Dúvidas frequentes</span>
+      <h2 class="sh" style="font-size:clamp(1.6rem,3.5vw,2.2rem)">Respostas rápidas</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <details>
+        <summary>O guia é mesmo gratuito?<span class="faq-icon">+</span></summary>
+        <p class="faq-body">Sim. 100% gratuito. Você só precisa informar seu nome e e-mail. Sem cartão de crédito, sem assinatura, sem pegadinha.</p>
+      </details>
+      <details>
+        <summary>Vale pra qualquer tipo de negócio?<span class="faq-icon">+</span></summary>
+        <p class="faq-body">Sim. O guia cobre as regras gerais de abertura de negócio no UK que se aplicam a qualquer setor: serviços, produtos físicos, negócios online, freelance e muito mais.</p>
+      </details>
+      <details>
+        <summary>E se meu visto não permitir empreender?<span class="faq-icon">+</span></summary>
+        <p class="faq-body">O guia tem um capítulo completo sobre vistos e estado imigratório. Ele explica o que cada visto permite, o que fazer se você ainda não pode empreender e quais caminhos existem para regularizar sua situação.</p>
+      </details>
+      <details>
+        <summary>Preciso falar inglês para abrir negócio no UK?<span class="faq-icon">+</span></summary>
+        <p class="faq-body">Não necessariamente. Você vai precisar de inglês básico para algumas etapas, mas o processo de registro pode ser feito com ajuda — como a orientação que está neste guia.</p>
+      </details>
+      <details>
+        <summary>O conteúdo é confiável e atualizado?<span class="faq-icon">+</span></summary>
+        <p class="faq-body">O material é baseado em experiência real e nas regulamentações do governo britânico (GOV.UK), atualizado para 2026. Para decisões específicas sobre vistos, recomendamos consultar um advogado de imigração autorizado.</p>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────── FOOTER ─────────────────────────── -->
-<footer class="py-12 px-5" style="background:#070f1f;">
-  <div class="max-w-6xl mx-auto">
-    <div class="grid md:grid-cols-4 gap-10 mb-10">
-      <!-- Brand -->
-      <div class="md:col-span-2">
-        <a href="#" class="flex items-center gap-2.5 mb-4">
-          <span style="width:32px;height:32px;background:linear-gradient(135deg,#00C896,#C9A96E);border-radius:6px;display:flex;align-items:center;justify-content:center;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-8 4 4 4-6 4 6" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          <span style="font-family:'Fraunces',serif;font-weight:800;font-size:15px;">NextWave <span style="color:#00C896;">Hub</span> UK</span>
+<hr class="divider"/>
+
+<!-- CTA FINAL -->
+<section style="padding:80px 0;background:linear-gradient(180deg,var(--navy3),var(--navydk));text-align:center;overflow:hidden;position:relative">
+  <div class="blob" style="width:400px;height:400px;background:var(--green);opacity:.05;bottom:-100px;left:-80px"></div>
+  <div style="position:relative;z-index:2;padding:0 20px">
+    <div style="font-size:48px;margin-bottom:16px">🚀</div>
+    <h2 class="sh" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:16px;max-width:640px;margin-left:auto;margin-right:auto">
+      A única coisa entre você<br/>e o seu negócio no UK<br/>
+      <span style="color:var(--green);font-style:italic">é uma decisão.</span>
+    </h2>
+    <p style="color:rgba(255,255,255,.5);font-size:1.05rem;margin-bottom:32px;line-height:1.75;max-width:480px;margin-left:auto;margin-right:auto">
+      Pare de deixar pra amanhã. O guia é gratuito, está pronto e você pode baixar em menos de 1 minuto. O que você está esperando?
+    </p>
+    <a href="#form" class="btn-gold" style="font-size:18px;padding:18px 44px">📥 Baixar o Guia Grátis — Comece Agora</a>
+    <p style="font-size:12px;color:rgba(255,255,255,.25);margin-top:14px">Grátis. Sem cartão de crédito. Acesso imediato.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:44px 0;background:var(--navydk);border-top:1px solid rgba(255,255,255,.05)">
+  <div class="container">
+    <div style="display:flex;flex-wrap:wrap;gap:40px;margin-bottom:32px">
+      <div style="flex:2;min-width:220px">
+        <a href="#" class="logo" style="margin-bottom:14px;display:inline-flex">
+          <div class="logo-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 17l4-8 4 4 4-6 4 6" stroke="#0B1C39" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="logo-text" style="font-size:14px">NextWave <span>Hub</span> UK</span>
         </a>
-        <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:280px;">
-          Educação financeira e de negócios para brasileiros construírem renda e patrimônio no Reino Unido.
-        </p>
-        <p style="font-size:11px;color:rgba(255,255,255,0.2);margin-top:12px;line-height:1.6;">
-          ⚠️ Todo o conteúdo é estritamente educacional. Não constitui aconselhamento financeiro ou de investimento. Consulte um profissional autorizado pela FCA antes de tomar decisões de investimento.
-        </p>
-        <!-- Social -->
-        <div class="flex gap-3 mt-5">
-          <a href="https://www.instagram.com/nextwave_hub_uk" target="_blank" rel="noopener" title="Instagram" style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;transition:all 0.2s;" class="hover:border-emerald-400">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.5)"/></svg>
+        <p style="font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;max-width:280px;margin-bottom:10px">Educação empreendedora e financeira para brasileiros construírem renda e independência no Reino Unido.</p>
+        <p style="font-size:11px;color:rgba(255,255,255,.18);line-height:1.6;max-width:300px">⚠️ Conteúdo estritamente educacional. Não constitui aconselhamento jurídico, financeiro ou imigratório regulado. Consulte profissional autorizado para decisões específicas.</p>
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <a href="https://www.instagram.com/nextwave_hub_uk" target="_blank" rel="noopener" style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,.5)"/></svg>
           </a>
-          <a href="https://www.youtube.com/channel/UCv7b6TyKfYtQdANJVZjnWMQ" target="_blank" rel="noopener" title="YouTube" style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;transition:all 0.2s;" class="hover:border-emerald-400">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <a href="https://www.youtube.com/channel/UCv7b6TyKfYtQdANJVZjnWMQ" target="_blank" rel="noopener" style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/></svg>
           </a>
-          <a href="#" class="wa-link" target="_blank" style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;transition:all 0.2s;" class="hover:border-emerald-400">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.115 1.524 5.847L.057 23.57a.5.5 0 00.602.602l5.733-1.464A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.697-.503-5.245-1.383l-.375-.214-3.882.993.997-3.777-.232-.389A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          <a href="#" class="wa-link" style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,.5)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.115 1.524 5.847L.057 23.57a.5.5 0 00.602.602l5.733-1.464A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.697-.503-5.245-1.383l-.375-.214-3.882.993.997-3.777-.232-.389A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
           </a>
         </div>
       </div>
-      <!-- Links -->
-      <div>
-        <h5 style="font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:14px;letter-spacing:0.06em;text-transform:uppercase;">Trilhas</h5>
-        <ul style="display:flex;flex-direction:column;gap:10px;">
-          <li><a href="#paths" style="font-size:13px;color:rgba(255,255,255,0.45);" class="hover:text-white transition-colors">Negócio de Pintura</a></li>
-          <li><a href="#paths" style="font-size:13px;color:rgba(255,255,255,0.45);" class="hover:text-white transition-colors">Investimentos no UK</a></li>
-          <li><a href="#lead" style="font-size:13px;color:rgba(255,255,255,0.45);" class="hover:text-white transition-colors">Guia Grátis</a></li>
-          <li><a href="#about" style="font-size:13px;color:rgba(255,255,255,0.45);" class="hover:text-white transition-colors">Sobre nós</a></li>
+      <div style="flex:1;min-width:140px">
+        <h5 style="font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:14px;letter-spacing:.06em;text-transform:uppercase">Links</h5>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li><a href="#guia" style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:none">O guia gratuito</a></li>
+          <li><a href="#form" style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:none">Baixar agora</a></li>
+          <li><a href="https://www.instagram.com/nextwave_hub_uk" target="_blank" rel="noopener" style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:none">Instagram</a></li>
+          <li><a href="https://www.youtube.com/channel/UCv7b6TyKfYtQdANJVZjnWMQ" target="_blank" rel="noopener" style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:none">YouTube</a></li>
         </ul>
       </div>
-      <!-- Contact -->
-      <div>
-        <h5 style="font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:14px;letter-spacing:0.06em;text-transform:uppercase;">Contato</h5>
-        <ul style="display:flex;flex-direction:column;gap:10px;">
-          <li><a href="/cdn-cgi/l/email-protection#6b050e131f1c0a1d0e031e091e002b0c060a020745080406" style="font-size:13px;color:rgba(255,255,255,0.45);" class="hover:text-white transition-colors"><span class="__cf_email__" data-cfemail="2d434855595a4c5b4845584f58466d4a404c4441034e4240">[email&#160;protected]</span></a></li>
-          <li><a href="#" class="wa-link" target="_blank" style="font-size:13px;color:rgba(255,255,255,0.45);" class="hover:text-white transition-colors">WhatsApp</a></li>
-          <li><a href="politica-de-privacidade.html" style="font-size:13px;color:rgba(255,255,255,0.45);" class="hover:text-white transition-colors">Política de Privacidade</a></li>
-          <li><a href="termos-de-uso.html" style="font-size:13px;color:rgba(255,255,255,0.45);" class="hover:text-white transition-colors">Termos de Uso</a></li>
+      <div style="flex:1;min-width:140px">
+        <h5 style="font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:14px;letter-spacing:.06em;text-transform:uppercase">Contato</h5>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li><a href="mailto:nextwavehubuk@gmail.com" style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:none">nextwavehubuk@gmail.com</a></li>
+          <li><a href="#" class="wa-link" style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;cursor:pointer">WhatsApp</a></li>
+          <li><a href="/politica-de-privacidade.html" style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:none">Política de Privacidade</a></li>
+          <li><a href="/termos-de-uso.html" style="font-size:13px;color:rgba(255,255,255,.4);text-decoration:none">Termos de Uso</a></li>
         </ul>
       </div>
     </div>
-
-    <hr class="divider" />
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8">
-      <p style="font-size:12px;color:rgba(255,255,255,0.25);">© 2025 NextWave Hub UK. Todos os direitos reservados.</p>
-      <p style="font-size:12px;color:#C9A96E;letter-spacing:0.12em;font-weight:600;opacity:0.7;">◆ Education. Strategy. Wealth. ◆</p>
+    <hr class="divider"/>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-top:20px">
+      <p style="font-size:12px;color:rgba(255,255,255,.2)">© 2026 NextWave Hub UK. Todos os direitos reservados.</p>
+      <p style="font-size:12px;color:var(--gold);letter-spacing:.1em;font-weight:600;opacity:.65">◆ Education. Strategy. Wealth. ◆</p>
     </div>
   </div>
 </footer>
 
-<!-- ─────────────────────────── FLOATING WA ─────────────────────────── -->
-<a id="wa-btn" href="#" class="wa-link" target="_blank" rel="noopener" title="Falar no WhatsApp">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.115 1.524 5.847L.057 23.57a.5.5 0 00.602.602l5.733-1.464A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.697-.503-5.245-1.383l-.375-.214-3.882.993.997-3.777-.232-.389A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-  </svg>
-</a>
+<!-- WA FLOAT -->
+<button id="wa" class="wa-link" title="Falar no WhatsApp">
+  <svg width="27" height="27" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.115 1.524 5.847L.057 23.57a.5.5 0 00.602.602l5.733-1.464A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.697-.503-5.245-1.383l-.375-.214-3.882.993.997-3.777-.232-.389A9.958 9.958 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</button>
 
-<!-- ─────────────────────────── JS ─────────────────────────── -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Scroll progress bar
-  window.addEventListener('scroll', () => {
-    const el = document.getElementById('progress');
-    const h = document.documentElement;
-    const pct = (h.scrollTop || document.body.scrollTop) / ((h.scrollHeight || document.body.scrollHeight) - h.clientHeight) * 100;
-    el.style.width = pct + '%';
-  });
+<script>
+// Progress bar
+window.addEventListener('scroll',function(){var h=document.documentElement;var pct=(h.scrollTop||document.body.scrollTop)/((h.scrollHeight||document.body.scrollHeight)-h.clientHeight)*100;document.getElementById('bar').style.width=pct+'%'});
 
-  // Intersection Observer for reveal animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.12 });
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// WhatsApp masked
+var _p=['https://','wa.','me/','44','75','46','37','86','80'];var waUrl=_p.join('');
+document.querySelectorAll('.wa-link').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();window.open(waUrl,'_blank','noopener,noreferrer')})});
 
-  // ── WhatsApp masked link (assembled at runtime, never in HTML source) ──
-  const _p = ['https://', 'wa.', 'me/', '44', '75', '46', '37', '86', '80'];
-  const waUrl = _p.join('');
-  document.querySelectorAll('.wa-link').forEach(el => {
-    el.addEventListener('click', e => {
-      e.preventDefault();
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-    });
-  });
-
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
+// FAQ icon toggle
+document.querySelectorAll('details').forEach(function(d){d.addEventListener('toggle',function(){var s=d.querySelector('.faq-icon');if(s)s.textContent=d.open?'−':'+'})});
 </script>
 </body>
 </html>
