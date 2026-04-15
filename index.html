@@ -593,5 +593,13 @@ document.querySelectorAll('.wa-link').forEach(function(el){el.addEventListener('
 // FAQ icon toggle
 document.querySelectorAll('details').forEach(function(d){d.addEventListener('toggle',function(){var s=d.querySelector('.faq-icon');if(s)s.textContent=d.open?'−':'+'})});
 </script>
-</body>
-</html>
+  <form name="lead" method="POST" action="/obrigado.html" data-netlify="true">
+  <input type="hidden" name="form-name" value="lead" />
+
+  <input type="text" name="nome" required />
+  <input type="email" name="email" required />
+  <input type="text" name="whatsapp" required />
+
+  <button type="submit">Baixar guia</button>
+</form>
+
