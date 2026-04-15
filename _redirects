@@ -1,1 +1,2 @@
-
+/obrigado.html  /obrigado.html  200
+/downloads/*    /downloads/:splat  200
